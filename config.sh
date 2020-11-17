@@ -2,11 +2,13 @@
 
 #Configuration file for gmcalc (to do)
 
+workingdirectory=${HOME}/lqta/
+
 #Folders
-com_fld=${HOME}/lqta/com
-log_fld=${HOME}/lqta/log
-mopac_fld=${HOME}/lqta/mopac
-gjf_fld=${HOME}/lqta/gjf
+com_fld=${workingdirectory}com
+log_fld=${workingdirectory}log
+mopac_fld=${workingdirectory}mopac
+gjf_fld=${workingdirectory}gjf
 
 #Set methods
 metodos=("MP2/aug-cc-pVTZ" "AM1" "PM3" "PM6" "PM7" "RM1")
