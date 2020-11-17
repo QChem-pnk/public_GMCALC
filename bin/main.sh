@@ -13,13 +13,13 @@ freq="true"
 COLUMNS=0
 
 #If there's a positional parameter, use it as molecules, if not, ask molec activated
-if ! [ "$1" == "" ]
+if ! [ "$1" = "" ]
 then
    molec=$1
 fi
 
 #If there's a second positional parameter, use it as method, if not, ask for method activated
-if ! [ "$2" == "" ]
+if ! [ "$2" = "" ]
 then
    method=$2
    if [ $method = "MP2" ]
@@ -29,11 +29,12 @@ then
 fi
 
 #If there's a second positional parameter, use it as method, if not, ask for method activated
-if ! [ "$3" == "" ]
+if ! [ "$3" = "" ]
 then
    methodmop=$3
    methodmoplong=$3
 fi
+
 
 trap interrupt_c INT
 
