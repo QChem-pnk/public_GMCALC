@@ -1,6 +1,6 @@
 #!/bin/bash
 
 #Version number
-versionnmb="v1.3.0"
+versionnmb="v1.4.0"
 
 source ./bin/main.sh
