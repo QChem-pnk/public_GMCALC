@@ -2,18 +2,6 @@
 
 clear
 
-source ./config.sh
-source ./bin/menu/menu.sh
-source ./bin/menu/menuopts.sh
-source ./bin/prgmscr/gauss.sh
-source ./bin/prgmscr/mopac.sh
-source ./bin/fnct/state.sh
-source ./bin/fnct/chkst.sh
-source ./bin/fnct/sev.sh
-source ./bin/fnct/ask.sh
-source ./bin/fnct/other.sh
-source ./bin/fnct/checkfld.sh
-
 #Programs
 calcpr=("GAUSSIAN" "MOPAC")
 

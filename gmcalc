@@ -37,4 +37,7 @@ else
   sleep 0.02
 fi
 
-source ./bin/main.sh
+for binfile in "${binfiles[@]}"
+do
+  source ${DIR}/${binfile}
+done
