@@ -1,6 +1,38 @@
 #!/bin/bash
 
 #Version number
-versionnmb="v1.4.0"
+versionnmb="v1.7.0"
+
+function bin_chk {
+    if [ -f $1 ]; then
+      echo -e "File $1 OK"
+    else  
+      echo -e "File $1 does not exist"
+      files_missing=true
+    fi
+    sleep 0.01
+}
+
+echo -e "\n\e[35mGMCALC ${versionnmb}\e[0m\n"
+echo -e "Checking files.\n"
+sleep 0.01
+
+binfiles=("./bin/menu/menu.sh" "./bin/menu/menuopts.sh")
+binfiles+=("./bin/prgmscr/gauss.sh" "./bin/prgmscr/mopac.sh")
+binfiles+=("./bin/fnct/state.sh" "./bin/fnct/chkst.sh" "./bin/fnct/sev.sh" "./bin/fnct/ask.sh" "./bin/fnct/other.sh" "./bin/fnct/checkfld.sh")
+binfiles+=("./bin/main.sh")
+
+for binfile in "${binfiles[@]}"
+do
+  bin_chk $binfile
+done
+
+if [ $files_missing ]; then
+  echo -e "\n\e[31mERROR\e[0m. Some files are missing, please install again.\n"
+  exit
+else
+  echo -e "\nCheck SUCCESS. All correct.\n"
+  sleep 0.02
+fi
 
 source ./bin/main.sh
