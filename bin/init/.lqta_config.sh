@@ -2,7 +2,7 @@
 
 #Configuration file for gmcalc (to do)
 
-work_fld=${DIR}/results
+work_fld=${HOME}/lqta
 
 #Folders
 com_fld=${work_fld}/com
@@ -15,8 +15,8 @@ metodos=("MP2/aug-cc-pVTZ" "AM1" "PM3" "PM6" "PM7" "RM1")
 shmetodos=("MP2" "AM1" "PM3" "PM6" "PM7" "RM1")
 
 #Sbatch variables
-account=""
-partition=""
+account="emtccm_serv"
+partition="emtccm"
 
 #Function to launch to a queue, change to your launch command
 function launch_sbatch {
