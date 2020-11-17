@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PS3="
-:: Elija una opción > "
+:: Choose an option > "
 
 clear
 
@@ -22,15 +22,15 @@ opt_geom="true"
 freq="true"
 
 #Options
-salidaex="SALIR"
+salidaex="EXIT"
 gaussianopt="GAUSSIAN"
 mopacopt="MOPAC"
-volver="VOLVER"
-cambio_t=("Comprobar estado" "Cambiar molécula" "Cambiar método GAUSSIAN"  "Cambiar método MOPAC" "Cambiar TODO")
-gaussian_sub=("Gaussian TODO" "Input gaussian" "Input sbatch gaussian" "Lanzar gaussian" "Cambiar opciones GAUSSIAN")
-mopac_sub=("MOPAC TODO" "Crear input de MOPAC" "Lanzar MOPAC" "MOPAC para las moleculas que no están hechas" "Ver resultados de MOPAC")
-gauss_opt=("Optimización de geometría" "Frecuencias")
-mopac_opt=("Por método" "Por molécula")
+volver="BACK"
+cambio_t=("Check status" "Change molecule" "Change method GAUSSIAN"  "Change method MOPAC" "Change ALL")
+gaussian_sub=("Gaussian ALL" "Input gaussian" "Input sbatch gaussian" "Launch gaussian" "Change options GAUSSIAN")
+mopac_sub=("MOPAC ALL" "Input MOPAC" "Launch MOPAC" "MOPAC for remaining molecules" "Check results MOPAC")
+gauss_opt=("Geometry optimization" "Frequencies")
+mopac_opt=("By method" "By molecule")
 
 #Defining colors
 dfltc="\e[0m"
@@ -49,7 +49,8 @@ white="9m"
 
 colorch=""
 
-last_thing="Nada hecho."
+last_thing="Nothing done."
+
 #Number of columns in menu
 COLUMNS=0
 
@@ -199,21 +200,21 @@ function menugm {
    #Show molecules and methods
    if [ "$molec" = "" ]
    then
-     printf "\e[34m%-10s \e[91m%-36s\e[0m \e[34m%-20s\e[0m\n" "Molécula:" "NINGUNA" ${megaman[10]}
+     printf "\e[34m%-10s \e[91m%-36s\e[0m \e[34m%-20s\e[0m\n" "Molecule:" "NONE" ${megaman[10]}
    else
-     printf "\e[34m%-10s \e[94m%-36s\e[0m \e[34m%-20s\e[0m\n" "Molécula:" $molec ${megaman[10]}
+     printf "\e[34m%-10s \e[94m%-36s\e[0m \e[34m%-20s\e[0m\n" "Molecule:" $molec ${megaman[10]}
    fi
    if [ "$methodlong" = "" ]
    then
-      printf "\e[36m%-16s \e[91m%-14s\e[0m\n" "Método GAUSSIAN:" "NO SELECCIONADO"
+      printf "\e[36m%-16s \e[91m%-14s\e[0m\n" "GAUSSIAN method:" "NOT SELECTED"
    else
-      printf "\e[36m%-16s \e[96m%-14s\e[0m\n" "Método GAUSSIAN:" $methodlong
+      printf "\e[36m%-16s \e[96m%-14s\e[0m\n" "GAUSSIAN method:" $methodlong
    fi
    if [ "$methodmoplong" = "" ]
    then
-       printf "\e[36m%-16s \e[91m%-18s\e[0m\n" "Método MOPAC:" "NO SELECCIONADO"
+       printf "\e[36m%-16s \e[91m%-18s\e[0m\n" "MOPAC method:" "NOT SELECTED"
    else
-       printf "\e[36m%-16s \e[96m%-18s\e[0m\n" "Método MOPAC:" $methodmoplong
+       printf "\e[36m%-16s \e[96m%-18s\e[0m\n" "MOPAC method:" $methodmoplong
    fi
    truebox="\e[42m"
    falsebox="\e[41m"
@@ -235,7 +236,7 @@ function menugm {
    #Show gaussian method options
    if [ "$molec" = "" ]
    then
-      echo -e "\n\e[31mSeleccione la molécula.\e[0m\n"
+      echo -e "\n\e[31mSelect the molecule.\e[0m\n"
    elif [ $i -eq 7 -o $i -eq 5 -o $i -eq 1 ]
    then 
       printf "\n\e[92m%12s \e[0m%3s   %4s %3s\n" "Options:    " " _ " "    " " _ "  
@@ -255,7 +256,7 @@ function dummy_del {
         fi
 }
 
-function exit_c {
+function interrupt_c {
 	dummy_del
         clear
         for i in `seq 0 9`;do
@@ -263,10 +264,11 @@ function exit_c {
         done
         echo -e "\e[34m${megaman[10]}\e[0m"
         echo -e "\n$last_thing"
-	echo -e "\nEl programa se ha \e[33minterrumpido\e[0m."
+	echo -e "\nThe program has been \e[33minterrumpted\e[0m.\n"
+        exit
 }
 
-trap exit_c EXIT
+trap interrupt_c INT
 
 #Check files in folder with a determined extension
 function chkf_d {
@@ -382,7 +384,7 @@ do
   menutmp=$menuslb
   menuslb=3
   menugm 4 3
-  echo -e "Introduce la molécula o escribe \e[31m'0'\e[0m para seleccionar una molécula existente\n"
+  echo -e "Input the molécula or input \e[31m'0'\e[0m to select a preexisting molecule:\n"
   read molec
   if [ $molec = "0" ]
   then
@@ -393,15 +395,15 @@ do
            #files is an array with all the molecules
            files=()
            files=`sort -u dummytxt`
-           files+=("TODAS")	
+           files+=("ALL")	
 	  while [ 0 ]
 	  do
            #initialize i
 	   i=1
-	   echo -e "\nMoléculas disponibles:\n"
+	   echo -e "\nAvailable molecules:\n"
 
            #Option to exit
-	   echo "0 - SALIR"
+	   echo "0 - EXIT"
 
 	   # for every molecule in var files
 	   for j in ${files[@]}
@@ -413,7 +415,7 @@ do
 	     i=$(( i + 1 ))
   	   done
            #Input file name
-	   echo -e "\nIntroduce el número del archivo o introduce 0 para continuar.\n"
+	   echo -e "\nInput the molecule number or \e[31m'0'\e[0m to continue.\n"
 	   read input
            
            #If 0, exit
@@ -432,11 +434,11 @@ do
  	     break
 	   fi
            #If it didn't correspond, keep looping
-	   echo -e "\nNo se ha introducido un valor válido.\n"
+	   echo -e "\nNot a valid value.\n"
 	  done
         #If there's no molecules
 	else
-           echo -e "\n\e[31mNo hay moléculas disponibles.\e[0m Volviendo al menú.\n"
+           echo -e "\n\e[31mNo avalaible molecules.\e[0m Back to menu.\n"
 	   dummy_del
 	   sleep 2
 	   break 
@@ -444,16 +446,16 @@ do
    fi
    if [ "$input" = [aA][lL][lL] ]
    then
-      molec="TODAS"
+      molec="ALL"
    fi
 
    #Display chosen molecule
    if [ "$input" = 0 ]
    then
-     echo -e "\nNo se ha seleccionado\e[32m molécula\e[0m.\n"
+     echo -e "\nNo\e[32m molécula\e[0m has been selected.\n"
      break 
    else
-     echo -e "\nSe ha seleccionado la molécula \e[94;5m${molec}\e[0m.\n"
+     echo -e "\nMolecule \e[94;5m${molec}\e[0m has been selected.\n"
      break
    fi
 
@@ -474,7 +476,7 @@ function askingmethod {
   else
      menugm $menunm 2
   fi
-  echo -e "Introduce el método para ${calcpr[$1]} o escribe \e[31m'0'\e[0m para seleccionar de una lista.\n"
+  echo -e "Input the ${calcpr[$1]} method or escribe \e[31m'0'\e[0m para seleccionar de una lista.\n"
   read methodtmp
   #If select is introduced
   if [ $methodtmp = "0" ]
@@ -483,9 +485,9 @@ function askingmethod {
      do
         i=1
 
-	echo -e "\nMétodos habituales:\n"
+	echo -e "\nAvailable methods:\n"
 
-	echo "0 - SALIR"
+	echo "0 - EXIT"
         for j in ${metodos[@]}
         do
           echo "$i - $j"
@@ -493,7 +495,7 @@ function askingmethod {
           i=$(( i + 1 ))
         done
 
-        echo -e "\nIntroduce el número correspondiente al método deseado o introduce 0 para continuar.\n"
+        echo -e "\nInput the method number or \e[31m'0'\e[0m to continue.\n"
         read input
 	if [ "$input" = 0 ]
 	then 
@@ -513,9 +515,9 @@ function askingmethod {
   #Display selected method, or none
   if [ "$input" = 0 ]
   then
-    echo -e "\nNo se ha seleccionado \e[32mmétodo\e[0m.\n"
+    echo -e "\nNo \e[32m${calcpr[$1]} method\e[0m has been selected.\n"
   else
-    echo -e "\nSe ha seleccionado el método para ${calcpr[$1]}: \e[96;5m${methodtmp}\e[0m\n"
+    echo -e "\n${calcpr[$1]} method seleted: \e[96;5m${methodtmp}\e[0m\n"
   fi
     #Change method MP2 for complete name
   if [ $methodtmp = "MP2" ]
@@ -542,9 +544,9 @@ function askingmethod {
 
 #Function to call error
 function inperr {
-         echo -e "\n\e[5;31mERROR\e[0m\nNo existe esa opción."
+         echo -e "\n\e[5;31mERROR\e[0m\nNo such option."
          sleep 2
-         echo -ne "\n\r\e[5mElija un número del menú."
+         echo -ne "\n\r\e[5mChoose a number from the menu."
          sleep 1
          echo -ne "\r\e[K \e[0m"
          break
@@ -578,10 +580,10 @@ function gaussian_input {
 			echo "" >> ${output}
 	            fi
 		 else
-		  echo -e "\nNo existe un archivo de entrada válido para crear el input de Gaussian.\n"
+		  echo -e "\nNo valid .gjp input file to create Gaussian input.\n"
 		 fi
                   usedmolec="\e[94m$molec\e[0m"
-                  last_thing="Se ha generado el input de \e[34mGAUSSIAN\e[0m para la molécula $usedmolec"
+                  last_thing="\e[34mGAUSSIAN\e[0m input generated for molecule $usedmolec"
                   echo -e $last_thing
 }
 
@@ -602,7 +604,7 @@ function gaussian_sbatch {
                   # Cleaning
                   echo -e "rm -rf /scratch/$USER/$molec" >> ${output}
                   usedmolec="\e[94m$molec\e[0m"
-                  last_thing="Se ha generado el sbatch de \e[34mGAUSSIAN\e[0m para la molécula $usedmolec"
+                  last_thing="\e[34mGAUSSIAN\e[0m sbatch generated for molecule $usedmolec"
                   echo -e $last_thing
 }
 
@@ -612,7 +614,7 @@ function gaussian_launch {
    	          launch_sbatch ${output}
    	          rm ${output}
                   usedmolec="\e[94m$molec\e[0m"
-                  last_thing="Se ha lanzado \e[34mGAUSSIAN\e[0m para la molécula $usedmolec"
+                  last_thing="\e[34mGAUSSIAN\e[0m running for molecule $usedmolec"
                   echo -e $last_thing
 }
 
@@ -670,7 +672,7 @@ function mopac_input {
                   echo >> ${output}
                   echo FORCE OLDGEO CHARGE=0 ${methodmop} >> ${output}
                   usedmolec="\e[94m$molec\e[0m"
-                  last_thing="Se ha generado el input de \e[31mMOPAC\e[0m para la molécula $usedmolec"
+                  last_thing="\e[31mMOPAC\e[0m input generated for molecule $usedmolec"
                   echo -e $last_thing
     }
 
@@ -683,7 +685,7 @@ function mopac_launch {
                   launch_sbatch ${output}
                   rm ${output}
                   usedmolec="\e[94m$molec\e[0m"
-                  last_thing="Se ha lanzado \e[31mMOPAC\e[0m para la molécula $usedmolec"
+                  last_thing="\e[31mMOPAC\e[0m running for molecule $usedmolec"
                   echo -e $last_thing
 }
 
@@ -728,10 +730,10 @@ function chk_resmop_mol {
 
         printf " %10s_%16s_%17s\n" $bmtop1 $bmtop2 $bmtop3 
         printf "|%10s %16s %17s|\n"
-        printf "|${spaces}\e[0m\e[32;1m%s${spaces}\e[0m|\n" "MOLÉCULA:${unspace} $molec"
+        printf "|${spaces}\e[0m\e[32;1m%s${spaces}\e[0m|\n" "MOLECULE:${unspace} $molec"
         printf "|%10s_%16s_%17s|\n" $bmtop1 $bmtop2 $bmtop3
         printf "|%10s|%16s|%17s|\n"
-        printf "|  \e[34;1m%-6s\e[0m  |  \e[33;1m%-12s\e[0m  |   \e[36;1m%-11s   \e[0m|\n" "METODO" "TOTAL ENERGY" "ZERO POINT"
+        printf "|  \e[34;1m%-6s\e[0m  |  \e[33;1m%-12s\e[0m  |   \e[36;1m%-11s   \e[0m|\n" "METHOD" "TOTAL ENERGY" "ZERO POINT"
         printf "|%10s|%16s|%17s|\n" $bmtop1 $bmtop2 $bmtop3
         printf "|%10s|%16s|%17s|\n"
         i=0
@@ -747,10 +749,10 @@ function chk_resmop_mol {
              then
                 printf "| ${bblue}%-8s \e[0m| ${bpurple}%14s\e[0m | ${bcyan}%15s \e[0m|\n" "${methodres[$i]}" "${totalenergy[$i]} EV" "${zeroenergy[$i]} KCAL/MOL"
              else
-                printf "| ${bblue}%-8s \e[0m| ${bpurple}%14s\e[0m |    ${bred}%12s \e[0m|\n" "${methodres[$i]}" "${totalenergy[$i]} EV" "NO APLICABLE"
+                printf "| ${bblue}%-8s \e[0m| ${bpurple}%14s\e[0m |    ${bred}%12s \e[0m|\n" "${methodres[$i]}" "${totalenergy[$i]} EV" "NO DATA"
              fi
            else
-             printf "| ${bblue}%-8s \e[0m|   ${bred}%12s\e[0m |    ${bred}%12s \e[0m|\n" "${methodres[$i]}" "NO HAY DATOS" "NO HAY DATOS"
+             printf "| ${bblue}%-8s \e[0m|   ${bred}%12s\e[0m |    ${bred}%12s \e[0m|\n" "${methodres[$i]}" "NO DATA" "NO DATA"
            fi
            if ! [ $i = $fin ]
            then
@@ -758,7 +760,7 @@ function chk_resmop_mol {
            fi
         done
         printf "|%10s|%16s|%17s|\n" $bmtop1 $bmtop2 $bmtop3
-        echo -e "\nPresione una tecla para continuar"
+        echo -e "\nPress a key to continue."
         read input
         dummy_del
         break        
@@ -781,10 +783,10 @@ function chk_resmop_method {
 
         printf " %10s_%16s_%17s\n" $bmtop1 $bmtop2 $bmtop3 
         printf "|%10s %16s %17s|\n"
-        printf "|                 \e[0m\e[32;1m%-12s                 \e[0m|\n" "MÉTODO: $methodmop"
+        printf "|                 \e[0m\e[32;1m%-12s                 \e[0m|\n" "METHOD: $methodmop"
         printf "|%10s_%16s_%17s|\n" $bmtop1 $bmtop2 $bmtop3
         printf "|%10s|%16s|%17s|\n"
-        printf "| \e[34;1m%-8s\e[0m |  \e[33;1m%-12s\e[0m  |   \e[36;1m%-11s   \e[0m|\n" "MOLÉCULA" "TOTAL ENERGY" "ZERO POINT"
+        printf "| \e[34;1m%-8s\e[0m |  \e[33;1m%-12s\e[0m  |   \e[36;1m%-11s   \e[0m|\n" "MOLECULE" "TOTAL ENERGY" "ZERO POINT"
         printf "|%10s|%16s|%17s|\n" $bmtop1 $bmtop2 $bmtop3
         printf "|%10s|%16s|%17s|\n"
         i=0
@@ -801,10 +803,10 @@ function chk_resmop_method {
              then
                 printf "| ${bblue}%-8s \e[0m| ${bpurple}%14s\e[0m | ${bcyan}%15s \e[0m|\n" "$moleci" "${totalenergy[$i]} EV" "${zeroenergy[$i]} KCAL/MOL"
              else
-                printf "| ${bblue}%-8s \e[0m| ${bpurple}%14s\e[0m |    ${bred}%12s \e[0m|\n" "$moleci" "${totalenergy[$i]} EV" "NO APLICABLE"
+                printf "| ${bblue}%-8s \e[0m| ${bpurple}%14s\e[0m |    ${bred}%12s \e[0m|\n" "$moleci" "${totalenergy[$i]} EV" "NO DATA"
              fi
            else
-                printf "| ${bblue}%-8s \e[0m|   ${bred}%12s\e[0m |    ${bred}%12s \e[0m|\n" "$moleci" "NO HAY DATOS" "NO HAY DATOS"
+                printf "| ${bblue}%-8s \e[0m|   ${bred}%12s\e[0m |    ${bred}%12s \e[0m|\n" "$moleci" "NO DATA" "NO DATA"
            fi
            if ! [ $i = $fin ]
            then
@@ -813,7 +815,7 @@ function chk_resmop_method {
            i=`expr $i + 1`
         done
         printf "|%10s|%16s|%17s|\n" $bmtop1 $bmtop2 $bmtop3
-        echo -e "\nPresione una tecla para continuar"
+        echo -e "\nPress a key to continue."
         read input
         dummy_del
         break        
@@ -821,8 +823,8 @@ function chk_resmop_method {
 
 #Funtion to finish and echo
 function completecho {
-		  echo -e "\n\e[5;32mCompletado\e[0m"
-                  echo -e "\nPresione una tecla para continuar"
+		  echo -e "\n\e[5;32mSuccess\e[0m"
+                  echo -e "\nPress a key to continue."
                   read input
 		  clear
 		  break
@@ -854,7 +856,7 @@ function allmol_gauss {
           ;;
       esac
       rm dummytxt
-      molec="TODAS"
+      molec="ALL"
 }
 
 
@@ -875,7 +877,7 @@ function allmol_mop {
           esac
           done < $dummy
           rm dummytxt
-          molec="TODAS"
+          molec="ALL"
 }
 
 #Hacer las moleculas que no estan ya en mopac
@@ -936,7 +938,7 @@ shmetodos=("MP2" "AM1" "PM3" "PM6" "PM7" "RM1")
               done
               printf "${str}\n" "$ci" "_" "_" "_" "_" "_" "_" "_" "_" "_" "_" "_" "_"
           done 
-        echo -e "\nPresione una tecla para continuar"
+        echo -e "\nPress a key to continue."
         read input
         break        
 }
@@ -975,92 +977,92 @@ do
         break
       ;;
 
-      "Gaussian TODO"|"Input gaussian")
-        if ! [ $molec = "TODAS" ]
+      "Gaussian ALL"|"Input gaussian")
+        if ! [ $molec = "ALL" ]
         then
           gaussian_input
         else
           allmol_gauss 1
         fi
       ;;&
-        "Gaussian TODO" | "Input sbatch gaussian")
-        if ! [ $molec = "TODAS" ]
+        "Gaussian ALL" | "Input sbatch gaussian")
+        if ! [ $molec = "ALL" ]
         then
           gaussian_sbatch
         else
           allmol_gauss 2
         fi
       ;;&
-      "Gaussian TODO" | "Lanzar gaussian")
-        if ! [ $molec = "TODAS" ]
+      "Gaussian ALL" | "Launch gaussian")
+        if ! [ $molec = "ALL" ]
         then
           gaussian_launch
         else
           allmol_gauss 3
         fi
       ;;&
-      "Gaussian TODO" | "Input gaussian" | "Input sbatch gaussian" | "Lanzar gaussian")
+      "Gaussian ALL" | "Input gaussian" | "Input sbatch gaussian" | "Launch gaussian")
           completecho
       ;;
               
-      "MOPAC TODO" | "Crear input de MOPAC")
-        if ! [ $molec = "TODAS" ]
+      "MOPAC ALL" | "Input MOPAC")
+        if ! [ $molec = "ALL" ]
         then
           mopac_input
         else
           allmol_mop 1
         fi
       ;;&
-      "MOPAC TODO" | "Lanzar MOPAC")
-        if ! [ $molec = "TODAS" ]
+      "MOPAC ALL" | "Launch MOPAC")
+        if ! [ $molec = "ALL" ]
         then
           mopac_launch
         else
           allmol_mop 2
         fi
       ;;&
-      "MOPAC TODO" | "Crear input de MOPAC" | "Lanzar MOPAC")
+      "MOPAC ALL" | "Input MOPAC" | "Launch MOPAC")
           completecho
       ;;
-      "MOPAC para las moleculas que no están hechas")
+      "MOPAC for remaining molecules")
           allnotdonemol_mop 0
           completecho
       ;;
       
-      "Ver resultados de MOPAC")
+      "Check results MOPAC")
         state=4
 	clear
         break
       ;;
-      "Comprobar estado")
+      "Check status")
           check_status
       ;;
-      "Cambiar molécula" | "Cambiar TODO")
+      "Change molecule" | "Change ALL")
          askingmol 0
       ;;&
 
-      "Cambiar método GAUSSIAN" | "Cambiar TODO")
+      "Change method GAUSSIAN" | "Change ALL")
          askingmethod 0
       ;;&
 
-      "Cambiar método MOPAC" | "Cambiar TODO")
+      "Change method MOPAC" | "Change ALL")
          askingmethod 1
       ;;&
 
-      "Cambiar molécula" | "Cambiar método GAUSSIAN" | "Cambiar método MOPAC" | "Cambiar TODO")
+      "Change molecule" | "Change method GAUSSIAN" | "Change method MOPAC" | "Change ALL")
 	clear
         menuslb=$menustmp
         break 
       ;;
 
-      "Cambiar opciones GAUSSIAN")
+      "Change options GAUSSIAN")
         state=3
 	clear
         menuslb=7
         break
       ;;
       
-      "Optimización de geometría")
+      "Geometry optimization")
         if [ $opt_geom = "false" ]
         then
            opt_geom="true"
@@ -1070,7 +1072,7 @@ do
         clear
         break
       ;;
-      "Frecuencias")
+      "Frequencies")
         if [ $freq = "false" ]
         then
            freq="true"
@@ -1080,20 +1082,20 @@ do
         clear
         break
       ;;
-      "Por método")
+      "By method")
          chk_resmop_method
       ;;
-      "Por molécula")
+      "By molecule")
          chk_resmop_mol
       ;;       
       
-      SALIR)
+      "EXIT")
         clear
       	dummy_del
         exit
       ;;
 
-      "VOLVER")
+      "BACK")
         if [ $state -eq 3 ]
         then
           state=1
