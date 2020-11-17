@@ -3,6 +3,8 @@
 #Version number
 versionnmb="v1.7.0"
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 function bin_chk {
     if [ -f $1 ]; then
       echo -e "File $1 OK"
@@ -17,14 +19,14 @@ echo -e "\n\e[35mGMCALC ${versionnmb}\e[0m\n"
 echo -e "Checking files.\n"
 sleep 0.01
 
-binfiles=("./bin/menu/menu.sh" "./bin/menu/menuopts.sh")
-binfiles+=("./bin/prgmscr/gauss.sh" "./bin/prgmscr/mopac.sh")
-binfiles+=("./bin/fnct/state.sh" "./bin/fnct/chkst.sh" "./bin/fnct/sev.sh" "./bin/fnct/ask.sh" "./bin/fnct/other.sh" "./bin/fnct/checkfld.sh")
-binfiles+=("./bin/main.sh")
+binfiles=("bin/menu/menu.sh" "bin/menu/menuopts.sh")
+binfiles+=("bin/prgmscr/gauss.sh" "bin/prgmscr/mopac.sh")
+binfiles+=("bin/fnct/state.sh" "bin/fnct/chkst.sh" "bin/fnct/sev.sh" "bin/fnct/ask.sh" "bin/fnct/other.sh" "bin/fnct/checkfld.sh")
+binfiles+=("bin/main.sh")
 
 for binfile in "${binfiles[@]}"
 do
-  bin_chk $binfile
+  bin_chk ${DIR}/${binfile}
 done
 
 if [ $files_missing ]; then
