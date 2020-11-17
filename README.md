@@ -1,6 +1,6 @@
 # Description
 
-GMCALC is a program designed to make life easier between Gaussview, Gaussian and MOPAC programs.
+GMCALC is a program in BASH SHELL designed to make life easier between Gaussview, Gaussian and MOPAC programs.
 It realizes three functions:
 - Prepare a gaussian input directly from a gaussview gjf file.
 - Launch said gaussian input.
