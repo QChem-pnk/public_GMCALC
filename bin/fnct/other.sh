@@ -25,7 +25,7 @@ function interrupt_c {
              echo -e "${megaman[$i]}"
         done
         echo -e "\e[34m${megaman[10]}\e[0m"
-        echo -e "LOG: \n$last_thing"
+        echo -e "\nLOG: $last_thing"
         echo -e "\nThe program has been \e[33minterrupted\e[0m.\n"
         exit
 }
