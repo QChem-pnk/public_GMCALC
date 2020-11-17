@@ -2,7 +2,7 @@
 
 clear
 
-source ./bin/config/config.sh
+source ./config.sh
 source ./bin/menu/menu.sh
 source ./bin/menu/menuopts.sh
 source ./bin/prgmscr/gauss.sh
