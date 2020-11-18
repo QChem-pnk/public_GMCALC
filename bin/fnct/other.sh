@@ -4,7 +4,7 @@
 #FUNCTIONS
 #Function to check if folder exists
 function chkfld {
-       if [ ! -d $1 ]
+       if [ ! -d "$1" ]
        then
            mkdir $1
        fi

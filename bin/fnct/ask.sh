@@ -5,7 +5,7 @@
 function chkf_d {
         ghm=""
         i=-1
-        while [ $i -lt $3 ]
+        while [ "$i" -lt "$3" ]
         do
           ghm=$ghm/*
           i=`expr $i + 1`
@@ -14,7 +14,7 @@ function chkf_d {
         #Anyfile var is number of .$2 files in $1 directory
         anyfile=`ls $chk_path | wc -w`
         #If there's files
-        if [ $anyfile -gt 0 ]
+        if [ "$anyfile" -gt 0 ]
         then
             #Save list of names in dummytxt
             ls $chk_path | awk -F . '{print $1}' | awk -F / '{print $NF}' | awk -F _ '{print $1}' >> dummytxt 2>/dev/null
@@ -50,7 +50,7 @@ do
   menugm 4 3
   echo -e "Input the molécula or input \e[31m'0'\e[0m to select a preexisting molecule:\n"
   read molec
-  if [ $molec = "0" ]
+  if [ "$molec" = "0" ]
   then
         get_all_molecules $1
         #if dummytext is bigger than 0
@@ -142,7 +142,7 @@ function askingmethod {
   echo -e "Input the ${calcpr[$1]} method or escribe \e[31m'0'\e[0m para seleccionar de una lista.\n"
   read methodtmp
   #If select is introduced
-  if [ $methodtmp = "0" ]
+  if [ "$methodtmp" = "0" ]
   then
      while [ 0 ]
      do
@@ -183,11 +183,11 @@ function askingmethod {
     echo -e "\n${calcpr[$1]} method seleted: \e[96;5m${methodtmp}\e[0m\n"
   fi
     #Change method MP2 for complete name
-  if [ $methodtmp = "MP2" ]
+  if [ "$methodtmp" = "MP2" ]
   then
      methodtmp="MP2/aug-cc-pVTZ"
 
-  elif [ $methodtmp = "MP2/aug-cc-pVTZ" ]
+  elif [ "$methodtmp" = "MP2/aug-cc-pVTZ" ]
   then
      methodtmp="MP2"
      methodtmplong="MP2/aug-cc-pVTZ"

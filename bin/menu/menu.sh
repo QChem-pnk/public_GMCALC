@@ -107,13 +107,13 @@ function menugm {
    i=$menuslb
    echo -ne "${finln}\n${separ}${megaman[0]}\n${programnm}${megaman[1]}\n${vnmbr}${megaman[2]}\n${creatorln}${megaman[3]}\n${separ}${megaman[4]}\n${selection[$i]}${megaman[5]}"
    #Draw depending on menu
-    if [ $i -eq 2 ]
+    if [ "$i" -eq 2 ]
     then
       echo -ne "\n${mopac2}"
-    elif [ $i -gt 2 -a $1 -ne 6 ]
+    elif [ "$i" -gt 2 -a "$1" -ne 6 ]
     then
       echo -ne "\n${selectoptch}"
-    elif [ $i -eq 6 ]
+    elif [ "$i" -eq 6 ]
     then
       echo -ne "\n${mopac2}"
     else

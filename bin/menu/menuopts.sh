@@ -16,7 +16,7 @@ mopac_opt=("By method" "By molecule")
 function call_menuopt {
     opt_array=()
     opt_array+=("$salidaex")
-    if ! [ -z $molec ]
+    if ! [ -z "$molec" ]
     then
        case $state in
          0)

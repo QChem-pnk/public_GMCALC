@@ -5,7 +5,7 @@ versionnmb="v1.7.7"
 
 echo -e "\n\e[35mGMCALC ${versionnmb}\e[0m\n"
 
-if [ $1 = "--help" ]; then
+if [ "$1" = "--help" ]; then
    echo -e "GMCALC is a program in BASH SHELL designed to make life easier \nbetween Gaussview, Gaussian and MOPAC programs.\n"
    echo -e "Commands are as follow:"
    echo -e "\t$0 --check \tCheck files."
@@ -18,7 +18,7 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 function bin_chk {
-    if [ -f $1 ]; then
+    if [ -f "$1" ]; then
       echo -e "File $1 OK"
     else  
       echo -e "File $1 does not exist"
@@ -47,7 +47,7 @@ do
 done
 
 
-if [ $files_missing ]; then
+if [ "$files_missing" ]; then
   echo -e "\n\e[31mERROR\e[0m. Some files are missing, please install again.\n"
   exit
 else
@@ -55,7 +55,7 @@ else
   sleep 0.02
 fi
 
-if [ $1 = "--check" ]; then
+if [ "$1" = "--check" ]; then
     exit
 fi
 
