@@ -30,7 +30,7 @@ Commands are as follow:
   - `./gmcalc [--startup_option] [molecule [method_for_gaussian [method_for_mopac] ] ]`
   
 Examples:
-- `./gmcalc --lqta ch2clf MP2 AM1`
+- `./gmcalc --init ch2clf MP2 AM1`
 - `./gmcalc ch4 MP2 AM1`
 
 ## To do
