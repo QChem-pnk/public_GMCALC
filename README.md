@@ -12,4 +12,20 @@ It realizes several functions:
 
 ## Configuration
 
-There's a config.sh file that contains folder locations, methods, and command for launching.
+Paths, methods, and command for launching can be modified in the config.sh file in the main directory.
+
+## Running
+
+Commands are as follow:
+- `./gmcalc --check`       Check files.
+- `./gmcalc --init`        Initialize the program. Shows initial configuration.
+- `./gmcalc --reset`       Reset the program to default.
+
+- In general:
+          `./gmcalc [--startup_option] [molecule [method_for_gaussian [method_for_mopac] ] ]`
+          
+## To do
+
+- [x] Functional program
+- [x] Modules
+- [ ] More Gaussian options
