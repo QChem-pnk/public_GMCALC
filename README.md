@@ -10,6 +10,10 @@ It realizes several functions:
 - Launch said MOPAC input.
 - Check status of outputs.
 
+## Requeriments
+
+Linux and bash.
+
 ## Configuration
 
 Paths, methods, and command for launching can be modified in the config.sh file in the main directory.
@@ -23,7 +27,11 @@ Commands are as follow:
 
 - In general:
   - `./gmcalc [--startup_option] [molecule [method_for_gaussian [method_for_mopac] ] ]`
-          
+  
+Examples:
+- `./gmcalc --lqta ch2clf MP2 AM1`
+- `./gmcalc ch4 MP2 AM1`
+
 ## To do
 
 - [x] Functional program
