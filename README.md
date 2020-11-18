@@ -1,4 +1,6 @@
-# Description
+# GMCALC
+
+## Description
 
 GMCALC is a program in BASH SHELL designed to make life easier between Gaussview, Gaussian and MOPAC programs.
 It realizes several functions:
@@ -8,6 +10,6 @@ It realizes several functions:
 - Launch said MOPAC input.
 - Check status of outputs.
 
-# Configuration
+## Configuration
 
-There's a config.sh file that contains folder locations, methods, and command for launching (for now).
+There's a config.sh file that contains folder locations, methods, and command for launching.
