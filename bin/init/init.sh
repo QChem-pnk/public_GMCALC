@@ -22,9 +22,6 @@ then
    echo -e "Seems like this is your first time. \nThese are the \e[36minitial configuration\e[0m.\n"
    show_wd_lc
    echo -e "\nDo you want to continue? [y/n]\n"
-   if ! $lqta; then
-       echo -ne "\e[97m(If you're from lqta, introduce 'lqta')\e[0m\n"
-   fi
    read input
     case $input in
      [yY])
@@ -36,15 +33,6 @@ then
      [nN])
         echo -e "\n\nPlease, edit \e[36mconfig.sh\e[0m at your convenience.\n"
         exit
-     ;;
-     lqta)
-       cp ${DIR}/bin/initi/.lqta_config.sh ${DIR}/config.sh
-       source ${DIR}/config.sh
-       echo -e "LQTA configuration done. These are the variables:"
-       show_wd_lc
-       echo -e "Press a key to continue."
-       read -n 1 input
-       break
      ;;
      *)
         echo -e "\n\n\e[5;31mNot a valid option.\e[0m\n"
