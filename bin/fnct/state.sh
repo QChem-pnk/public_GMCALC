@@ -8,7 +8,6 @@ function check_status {
    printf "|     \\ |\e[4mG|M\e[0m||%3s||%3s||%3s||%3s||%3s||%3s||\n" ${shmetodos[@]}
    printf "|\e[4m%11s\e[0m||%3s||%3s||%3s||%3s||%3s||%3s||\n" "MOLEC \    " "___" "___" "___" "___" "___" "___"
 
-shmetodos=("MP2" "AM1" "PM3" "PM6" "PM7" "RM1")
           buscagaus="Normal termination of Gaussian"
           buscamopac="JOB ENDED NORMALLY"
           dummy_del
