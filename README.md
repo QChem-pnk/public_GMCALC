@@ -21,6 +21,7 @@ Paths, methods, and command for launching can be modified in the config.sh file 
 ## Running
 
 Commands are as follow:
+
 - `./gmcalc --check`      Check files.
 - `./gmcalc --init`        Initialize the program. Shows initial configuration.
 - `./gmcalc --reset`      Reset the program to default.
