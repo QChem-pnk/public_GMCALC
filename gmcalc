@@ -11,7 +11,6 @@ if [ $1 = "--help" ]; then
    echo -e "\t$0 --check \tCheck files."
    echo -e "\t$0 --init \tInitialize the program."
    echo -e "\t$0 --reset\tReset the program."
-   echo -e "\t$0 --lqta \tConfiguration for LQTA students."
    echo -e "\nGeneral:\n\t$0 [--startup_option] [molecule [method_for_gaussian [method_for_mopac] ] ]\n"
    exit
 fi
@@ -42,7 +41,7 @@ do
   bin_chk ${DIR}/${binfile}
 done
 
-for ini in opt_ini.sh .default_config.sh .lqta_config.sh
+for ini in opt_ini.sh .default_config.sh 
 do
   bin_chk ${DIR}/bin/init/${ini}
 done
