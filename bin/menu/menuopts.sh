@@ -8,9 +8,17 @@ volver="BACK"
 cambio_t=("Check status" "Change molecule" "Change method GAUSSIAN"  "Change method MOPAC" "Change ALL")
 gaussian_sub=("Gaussian ALL" "Input gaussian" "Input sbatch gaussian" "Launch gaussian" "Change options GAUSSIAN")
 mopac_sub=("MOPAC ALL" "Input MOPAC" "Launch MOPAC" "MOPAC for remaining molecules" "Check results MOPAC")
-gauss_opt=("Geometry optimization" "Frequencies")
+gauss_opt=("${options_gauss_menu[@]}")
+gauss_opt+=("Deactivate options")
+
 mopac_opt=("By method" "By molecule")
 
+validOptions=""
+for key in ${!options_gauss_menu[@]}
+do
+        validOptions="$validOptions${options_gauss_menu[$key]}|"
+done
+validOptions="${validOptions}Deactivate options"
 
 #Function to call the menu
 function call_menuopt {

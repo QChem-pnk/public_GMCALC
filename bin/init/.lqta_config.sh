@@ -2,7 +2,7 @@
 
 #Configuration file for gmcalc (to do)
 
-work_fld=${DIR}/results
+work_fld=${HOME}/lqta
 
 #Folders
 com_fld=${work_fld}/com

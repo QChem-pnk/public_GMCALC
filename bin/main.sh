@@ -22,7 +22,7 @@ fi
 if ! [ "$2" = "" ]
 then
    method=$2
-   if [ "$method" = "MP2" ]
+   if [ $method = "MP2" ]
    then
       methodlong="MP2/aug-cc-pVTZ"
    fi
@@ -36,6 +36,14 @@ then
 fi
 
 
+
+for key in "${!options_gauss_menu[@]}"
+do
+   dummy="${options_gauss_menu[$key]}"
+   options_gauss_menu_r["${dummy]}"]=$key
+done
+
+
 trap interrupt_c INT
 
 #*********************************
@@ -43,6 +51,7 @@ trap interrupt_c INT
 #           SCRIPT START         *
 #*********************************
 #*********************************
+shopt -s extglob
 
 state=0
 while [ 0 ]
@@ -70,7 +79,7 @@ do
       ;;
 
       "Gaussian ALL"|"Input gaussian")
-        if ! [ "$molec" = "ALL" ]
+        if ! [ $molec = "ALL" ]
         then
           gaussian_input
         else
@@ -78,7 +87,7 @@ do
         fi
       ;;&
         "Gaussian ALL" | "Input sbatch gaussian")
-        if ! [ "$molec" = "ALL" ]
+        if ! [ $molec = "ALL" ]
         then
           gaussian_sbatch
         else
@@ -86,7 +95,7 @@ do
         fi
       ;;&
       "Gaussian ALL" | "Launch gaussian")
-        if ! [ "$molec" = "ALL" ]
+        if ! [ $molec = "ALL" ]
         then
           gaussian_launch
         else
@@ -98,7 +107,7 @@ do
       ;;
               
       "MOPAC ALL" | "Input MOPAC")
-        if ! [ "$molec" = "ALL" ]
+        if ! [ $molec = "ALL" ]
         then
           mopac_input
         else
@@ -106,7 +115,7 @@ do
         fi
       ;;&
       "MOPAC ALL" | "Launch MOPAC")
-        if ! [ "$molec" = "ALL" ]
+        if ! [ $molec = "ALL" ]
         then
           mopac_launch
         else
@@ -154,26 +163,20 @@ do
         break
       ;;
       
-      "Geometry optimization")
-        if [ "$opt_geom" = "false" ]
+      +(${validOptions}))
+        dummyk=`echo $opciones | cut -d "(" -f2 | cut -d ")" -f1`
+        if [ "$opciones" = "Deactivate options" ]
         then
-           opt_geom="true"
+          for opts_gasd in "${!options_gauss[@]}" ; do
+             options_gauss[${opts_gasd}]="false" 
+          done
         else
-           opt_geom="false"
-        fi        
+          check_bool "${dummyk}" 
+        fi
         clear
         break
-      ;;
-      "Frequencies")
-        if [ "$freq" = "false" ]
-        then
-           freq="true"
-        else
-           freq="false"
-        fi        
-        clear
-        break
-      ;;
+       ;;     
+
       "By method")
          chk_resmop_method
       ;;
@@ -188,11 +191,11 @@ do
       ;;
 
       "BACK")
-        if [ "$state" -eq 3 ]
+        if [ $state -eq 3 ]
         then
           state=1
         menuslb=1
-        elif [ "$state" -eq 4 ]
+        elif [ $state -eq 4 ]
         then
           state=2
         menuslb=2

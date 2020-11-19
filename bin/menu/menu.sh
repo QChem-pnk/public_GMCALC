@@ -142,18 +142,17 @@ function menugm {
    truebox="\e[42m"
    falsebox="\e[41m"
 
-   if [ "$opt_geom" = "true" ]
-   then
-      opt_geombox=$truebox
-   else
-      opt_geombox=$falsebox
-   fi
-   if [ "$freq" = "true" ]
-   then
-      freqbox=$truebox
-   else
-      freqbox=$falsebox
-   fi
+   declare -A options_gauss_sq
+   
+   for key in "${!options_gauss[@]}"
+   do
+              if "${options_gauss[${key}]}"
+              then
+                  options_gauss_sq[$key]=$truebox
+              else
+                  options_gauss_sq[$key]=$falsebox
+              fi
+   done
 
    #Show gaussian method options
    if [ "$molec" = "" ]
@@ -161,12 +160,15 @@ function menugm {
       echo -e "\n\e[31mSelect the molecule.\e[0m\n"
    elif [ $i -eq 7 -o $i -eq 5 -o $i -eq 1 ]
    then
-      printf "\n\e[92m%12s \e[0m%3s   %4s %3s\n" "Options:    " " _ " "    " " _ "
-      printf "\e[0m%12s |${opt_geombox}%1s\e[0m|   %4s |${freqbox}%1s\e[0m|\n" "   opt geom:" "_" "freq" "_"
+     echo -e "\n\e[36mOptions:\e[0m"
+     for key in "${!options_gauss_sq[@]}"
+     do  
+        echo -ne "   ${key}: |${options_gauss_sq[$key]}_\e[49m\e[1D\e[1A_\e[1B|"
+     done
    else
-      echo -e "\n\n"
+      echo -ne "\n\n"
    fi
    #Prompt last thing done
-   echo -e "\n\e[36mLOG:\e[0m $last_thing\n"
+   echo -e "\n\n\e[36mLOG:\e[0m $last_thing\n"
 }
 

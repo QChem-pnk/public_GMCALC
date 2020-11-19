@@ -108,7 +108,7 @@ function chk_resmop_method {
            else
                 printf "| ${bblue}%-8s \e[0m|   ${bred}%12s\e[0m |    ${bred}%12s \e[0m|\n" "$moleci" "NO DATA" "NO DATA"
            fi
-           if ! [ "$i" = "$fin" ]
+           if ! [ $i = $fin ]
            then
               printf "|%10s|%15s|%16s|\n" "----------" "----------------" "-----------------"
            fi

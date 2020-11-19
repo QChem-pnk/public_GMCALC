@@ -24,3 +24,7 @@ function launch_sbatch {
          sbatch -A ${account} -p ${partition} -n 1 ${1}
 }
 
+#array for Gaussian options and its predefault value.
+declare -A options_gauss=( [opt]="true" [freq]="true" ["pop=npa"]="false" )
+#Array for menu option name for the gaussian option. Please include the name of the option in parentheses before the menu name Ex: [option]="(option) Option description"
+declare -A options_gauss_menu=( [opt]="(opt) Geometry optimization" [freq]="(freq) Frequency" ["pop=npa"]="(pop=npa) Population analysis" )

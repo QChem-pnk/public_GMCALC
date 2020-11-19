@@ -18,6 +18,13 @@ function dummy_del {
         fi
 }
 
+function check_bool {
+          if "${options_gauss[$1]}"; then
+               options_gauss[$1]="false"
+          else
+               options_gauss[$1]="true"
+         fi
+}
 function interrupt_c {
         dummy_del
         clear

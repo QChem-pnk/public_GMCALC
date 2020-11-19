@@ -5,8 +5,8 @@
 #*********************************
 
 #Options gaussian
-opt_geomst="opt"
-freqst="freq"
+#opt_geomst="opt"
+#freqst="freq"
 
 #Function input de gaussian
 function gaussian_input {
@@ -61,14 +61,20 @@ function gaussian_launch {
 
 #function to create options for gaussian
 function gaussian_opts {
-        options_gaus=""
-        if $opt_geom
-        then
-           options_gaus="$options_gaus $opt_geomst"
-        fi
-        if $freq
-        then
-           options_gaus="$options_gaus $freqst"
-        fi
+        options_gaus_txt=""
+        for key in "${!options_gauss[@]}"; do
+              if "${options_gauss[${key}]}"
+              then
+                  options_gaus_txt="${options_gauss_txt}${key} "
+              fi
+        done
+        echo $options_gauss_txt
+  #      if $opt_geom
+  #      then
+  #         options_gaus="$options_gaus $opt_geomst"
+  #      fi
+  #      if $freq
+  #      then
+  #         options_gaus="$options_gaus $freqst"
+  #      fi
 }
-
