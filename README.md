@@ -37,4 +37,4 @@ Examples:
 
 - [x] Functional program
 - [x] Modules
-- [ ] More Gaussian options
+- [x] More Gaussian options
