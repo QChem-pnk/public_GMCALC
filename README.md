@@ -12,7 +12,7 @@ It realizes several functions:
 
 ## Requeriments
 
-Linux and bash.
+Linux, Bash. Gaussian and MOPAC.
 
 ## Configuration
 
