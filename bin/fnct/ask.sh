@@ -14,7 +14,7 @@ function chkf_d {
         #Anyfile var is number of .$2 files in $1 directory
         anyfile=`ls $chk_path | wc -w`
         #If there's files
-        if [ $anyfile -gt 0 ]
+        if [ "$anyfile" -gt 0 ]
         then
             #Save list of names in dummytxt
             ls $chk_path | awk -F . '{print $1}' | awk -F / '{print $NF}' | awk -F _ '{print $1}' >> dummytxt 2>/dev/null

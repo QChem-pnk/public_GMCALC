@@ -22,7 +22,7 @@ fi
 if ! [ "$2" = "" ]
 then
    method=$2
-   if [ $method = "MP2" ]
+   if [ "$method" = "MP2" ]
    then
       methodlong="MP2/aug-cc-pVTZ"
    fi
@@ -79,7 +79,7 @@ do
       ;;
 
       "Gaussian ALL"|"Input gaussian")
-        if ! [ $molec = "ALL" ]
+        if ! [ "$molec" = "ALL" ]
         then
           gaussian_input
         else
@@ -87,7 +87,7 @@ do
         fi
       ;;&
         "Gaussian ALL" | "Input sbatch gaussian")
-        if ! [ $molec = "ALL" ]
+        if ! [ "$molec" = "ALL" ]
         then
           gaussian_sbatch
         else
@@ -95,7 +95,7 @@ do
         fi
       ;;&
       "Gaussian ALL" | "Launch gaussian")
-        if ! [ $molec = "ALL" ]
+        if ! [ "$molec" = "ALL" ]
         then
           gaussian_launch
         else
@@ -107,7 +107,7 @@ do
       ;;
               
       "MOPAC ALL" | "Input MOPAC")
-        if ! [ $molec = "ALL" ]
+        if ! [ "$molec" = "ALL" ]
         then
           mopac_input
         else
@@ -115,7 +115,7 @@ do
         fi
       ;;&
       "MOPAC ALL" | "Launch MOPAC")
-        if ! [ $molec = "ALL" ]
+        if ! [ "$molec" = "ALL" ]
         then
           mopac_launch
         else
@@ -191,11 +191,11 @@ do
       ;;
 
       "BACK")
-        if [ $state -eq 3 ]
+        if [ "$state" -eq 3 ]
         then
           state=1
         menuslb=1
-        elif [ $state -eq 4 ]
+        elif [ "$state" -eq 4 ]
         then
           state=2
         menuslb=2

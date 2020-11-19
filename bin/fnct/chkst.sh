@@ -97,7 +97,7 @@ function chk_resmop_method {
            totalenergy[$i]=$(grep "${buscaen}" ${file} > /dev/null 2>&1 && grep "${buscaen}" ${file} | awk '{printf $4}' )
            zeroenergy[$i]=$(grep "${buscazero}" ${file} > /dev/null 2>&1 && grep "${buscazero}" ${file} | awk '{printf $4}' | cut -d ' ' -f 1)
            altcolor "$i"
-           if [ -f $file ]
+           if [ -f "$file" ]
            then
              if ! [ "${zeroenergy[$i]}" = "" ]
              then
@@ -108,7 +108,7 @@ function chk_resmop_method {
            else
                 printf "| ${bblue}%-8s \e[0m|   ${bred}%12s\e[0m |    ${bred}%12s \e[0m|\n" "$moleci" "NO DATA" "NO DATA"
            fi
-           if ! [ $i = $fin ]
+           if ! [ "$i" = "$fin" ]
            then
               printf "|%10s|%15s|%16s|\n" "----------" "----------------" "-----------------"
            fi
